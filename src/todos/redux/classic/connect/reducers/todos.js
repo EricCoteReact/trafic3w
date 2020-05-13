@@ -24,6 +24,14 @@ export default function todos(state = [], action) {
         todo.id === action.id ? { ...todo, text: action.text } : todo
       );
 
+    case actionList.DELETE_TODO:
+      // state.splice(
+      //   state.findIndex((todo) => todo.id === action.id),
+      //   1
+      // );
+      // return state;
+      return state.filter((todo) => todo.id !== action.id);
+
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-//import Cat from '../Cat';
+import Cat from '../Cat';
 
 class MouseParent extends React.Component {
   state = { x: 0, y: 0 };
@@ -11,13 +11,14 @@ class MouseParent extends React.Component {
   render() {
     return (
       <div style={{ height: '500px' }} onMouseMove={this.handleMouseMove}>
-        <DisplayMouse mouse={this.state} />
+        <Cat mouse={this.state} />
       </div>
     );
   }
 }
 
-function DisplayMouse({ mouse }) {
+// eslint-disable-next-line
+function DisplayMouse2({ mouse }) {
   return (
     <h1>
       The mouse position is: ({mouse.x}, {mouse.y})

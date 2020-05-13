@@ -4,7 +4,7 @@ import { ListGroupItem, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-const TodoItem = ({ onClick, completed, text }) => (
+const TodoItem = ({ onClick, completed, text, onDelete }) => (
   <ListGroupItem onClick={onClick} style={{ cursor: 'pointer' }}>
     <div
       className='float-left my-3'
@@ -14,7 +14,7 @@ const TodoItem = ({ onClick, completed, text }) => (
     >
       {text}
     </div>
-    <Button className='float-right mt-2' color='info' onClick={null}>
+    <Button className='float-right mt-2' color='info' onClick={onDelete}>
       <FontAwesomeIcon icon={faTrashAlt} />
     </Button>
   </ListGroupItem>

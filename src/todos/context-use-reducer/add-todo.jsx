@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Button, Input } from 'reactstrap';
 import TodoContext from './todo-context';
 
-export default function AddTodo(props) {
+export default function AddTodo() {
   const context = React.useContext(TodoContext);
   const { onAddTodo } = context;
 

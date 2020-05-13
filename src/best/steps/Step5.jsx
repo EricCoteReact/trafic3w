@@ -1,5 +1,5 @@
-import React, { useState, useEffect /*, useRef */ } from 'react';
-//import Cat from '../Cat';
+import React, { useState, useEffect, useRef } from 'react';
+import Cat from '../Cat';
 
 function useMouse(div) {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -10,7 +10,7 @@ function useMouse(div) {
 
   useEffect(() => {
     //use the div, if none then use the whole window
-    const dest = (div && div.current) || window;
+    const dest = div?.current ?? window;
     dest.addEventListener('mousemove', handleMouseMove);
     return () => {
       dest.removeEventListener('mousemove', handleMouseMove);
@@ -23,13 +23,15 @@ function useMouse(div) {
 ///////////////////////////////////////////////////////
 
 export default function DisplayMouse() {
-  const mouse = useMouse();
+  const ref = useRef(null);
+  const mouse = useMouse(ref);
   return (
-    <>
+    <div ref={ref} style={{ height: '400px' }}>
       <h1>
         The position is: ({mouse.x}, {mouse.y})
       </h1>
-    </>
+      <Cat mouse={mouse} />
+    </div>
   );
 }
 

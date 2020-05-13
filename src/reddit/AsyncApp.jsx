@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   selectSubreddit,
-  //fetchPostsIfNeeded,
+  fetchPostsIfNeeded,
   invalidateSubreddit,
-  requestPosts,
-  receivePosts,
+  // requestPosts,
+  // receivePosts,
 } from './redux/actions';
-import { Button } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 import Picker from './Picker';
 import Posts from './Posts';
 
@@ -20,23 +20,23 @@ class AsyncApp extends Component {
   }
 
   componentDidMount() {
-    const { /* dispatch, */ selectedSubreddit } = this.props;
-    this.fetchPostsIfNeeded(selectedSubreddit);
-    //dispatch(fetchPostsIfNeeded(selectedSubreddit));
+    const { dispatch, selectedSubreddit } = this.props;
+    //this.fetchPostsIfNeeded(selectedSubreddit);
+    dispatch(fetchPostsIfNeeded(selectedSubreddit));
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.selectedSubreddit !== prevProps.selectedSubreddit) {
-      const { /* dispatch, */ selectedSubreddit } = this.props;
-      this.fetchPostsIfNeeded(selectedSubreddit);
-      //dispatch(fetchPostsIfNeeded(selectedSubreddit));
+      const { dispatch, selectedSubreddit } = this.props;
+      //this.fetchPostsIfNeeded(selectedSubreddit);
+      dispatch(fetchPostsIfNeeded(selectedSubreddit));
     }
   }
 
   handleChange(nextSubreddit) {
     this.props.dispatch(selectSubreddit(nextSubreddit));
-    this.fetchPostsIfNeeded(nextSubreddit);
-    //this.props.dispatch(fetchPostsIfNeeded(nextSubreddit));
+    //this.fetchPostsIfNeeded(nextSubreddit);
+    this.props.dispatch(fetchPostsIfNeeded(nextSubreddit));
   }
 
   handleRefreshClick(evt) {
@@ -44,36 +44,36 @@ class AsyncApp extends Component {
 
     const { dispatch, selectedSubreddit } = this.props;
     dispatch(invalidateSubreddit(selectedSubreddit));
-    this.fetchPostsIfNeeded(selectedSubreddit, true);
-    //dispatch(fetchPostsIfNeeded(selectedSubreddit));
+    //this.fetchPostsIfNeeded(selectedSubreddit, true);
+    dispatch(fetchPostsIfNeeded(selectedSubreddit));
   }
 
-  shouldFetchPosts(subreddit, isInvalid) {
-    const posts = this.props.postsBySubreddit[subreddit];
-    if (!posts) {
-      return true;
-    } else if (posts.isFetching) {
-      return false;
-    } else {
-      return isInvalid;
-    }
-  }
+  // shouldFetchPosts(subreddit, isInvalid) {
+  //   const posts = this.props.postsBySubreddit[subreddit];
+  //   if (!posts) {
+  //     return true;
+  //   } else if (posts.isFetching) {
+  //     return false;
+  //   } else {
+  //     return isInvalid;
+  //   }
+  // }
 
-  async fetchPostsIfNeeded(subreddit, isInvalid) {
-    const { dispatch } = this.props;
-    if (this.shouldFetchPosts(subreddit, isInvalid)) {
-      dispatch(requestPosts(subreddit));
-      try {
-        const response = await fetch(
-          `https://www.reddit.com/r/${subreddit}.json`
-        );
-        const json = await response.json();
-        dispatch(receivePosts(subreddit, json));
-      } catch (err) {
-        // dispatch({ type: 'error', name: 'error', value: e.message });
-      }
-    }
-  }
+  // async fetchPostsIfNeeded(subreddit, isInvalid) {
+  //   const { dispatch } = this.props;
+  //   if (this.shouldFetchPosts(subreddit, isInvalid)) {
+  //     dispatch(requestPosts(subreddit));
+  //     try {
+  //       const response = await fetch(
+  //         `https://www.reddit.com/r/${subreddit}.json`
+  //       );
+  //       const json = await response.json();
+  //       dispatch(receivePosts(subreddit, json));
+  //     } catch (err) {
+  //       // dispatch({ type: 'error', name: 'error', value: e.message });
+  //     }
+  //   }
+  // }
 
   render() {
     const { selectedSubreddit, posts, isFetching, lastUpdated } = this.props;
@@ -94,7 +94,11 @@ class AsyncApp extends Component {
             <Button onClick={this.handleRefreshClick}>Refresh</Button>
           )}
         </p>
-        {isFetching && posts.length === 0 && <h2>Loading...</h2>}
+        {isFetching && posts.length === 0 && (
+          <h2>
+            <Spinner />
+          </h2>
+        )}
         {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
         {posts.length > 0 && (
           <div style={{ opacity: isFetching ? 0.5 : 1 }}>

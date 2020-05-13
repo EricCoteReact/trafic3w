@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleTodo /*, deleteTodo */ } from '../connect/actions';
+import { toggleTodo, deleteTodo } from '../connect/actions';
 import TodoList from '../../../common/todo-list';
 import { VisibilityFilters } from '../connect/actions';
 
@@ -25,7 +25,7 @@ export default function VisibleTodoList() {
     <TodoList
       todos={getVisibleTodos(todos, visibilityFilter)}
       onToggleTodo={(id) => dispatch(toggleTodo(id))}
-      onDeleteTodo={(id) => null}
+      onDeleteTodo={(id) => dispatch(deleteTodo(id))}
     />
   );
 }

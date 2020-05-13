@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { toggleTodo /*, deleteTodo */ } from './slices/todos';
+import { toggleTodo, deleteTodo } from './slices/todos';
 import { createSelector } from '@reduxjs/toolkit';
 import TodoList from '../../../common/todo-list';
 import { VisibilityFilters } from './slices/visibility-filter';
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   onToggleTodo: toggleTodo,
-  onDeleteTodo: (id) => (id) => null,
+  onDeleteTodo: deleteTodo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

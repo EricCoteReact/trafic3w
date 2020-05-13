@@ -1,16 +1,7 @@
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
+import { firestore as db } from '../../common/firebase';
 
 Object.filter = (obj, predicate) =>
   Object.fromEntries(Object.entries(obj).filter(predicate));
-
-firebase.initializeApp({
-  apiKey: 'AIzaSyAKDS8BM9MWwRA2PYgyqd3BpfRE0GyjULk',
-  //authDomain: '### FIREBASE AUTH DOMAIN ###',
-  projectId: 'test-10929',
-});
-
-const db = firebase.firestore();
 
 // db.collection("contacts").add({
 //   firstName: "Ada",

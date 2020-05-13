@@ -6,11 +6,12 @@ import MyContext from './MyContext';
 
 export default function SimpleContext() {
   const [firstName, setFirstName] = useState('John');
+  const [lastName, setLastName] = useState('Wayne');
   const [color, setColor] = useState('blue');
 
   //the folloing is to avoid the ESLint warning that
   //we're not calling the "set" methods.
-  if ((setFirstName, setColor)) {
+  if ((setFirstName, setColor, setLastName)) {
   }
 
   function change(evt) {
@@ -24,7 +25,9 @@ export default function SimpleContext() {
   }
 
   return (
-    <MyContext.Provider value={{ firstName, color, onChange: change }}>
+    <MyContext.Provider
+      value={{ firstName, lastName, color, onChange: change }}
+    >
       <Row>
         <Col md='6'>
           <ColoredPart />

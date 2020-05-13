@@ -1,5 +1,5 @@
 import React from 'react';
-import ContactApi from './contact-api/ContactApi';
+import ContactApi from './contact-api/ContactApi2';
 import ContactTable from './ContactTable';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';

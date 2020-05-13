@@ -64,7 +64,7 @@ export default function Menu() {
             <UncontrolledDropdown nav inNavbar>
               <ToggleMenu name='Contacts' link='contacts' />
               <DropdownMenu>
-                <DropdownItem tag={RRNavLink} to='/covid'>
+                <DropdownItem tag={RRNavLink} to='/contacts/covid'>
                   Covid
                 </DropdownItem>
                 <DropdownItem tag={RRNavLink} to='/contacts/hooks'>
@@ -90,7 +90,7 @@ export default function Menu() {
               </DropdownMenu>
             </UncontrolledDropdown>
             <UncontrolledDropdown nav inNavbar>
-              <ToggleMenu name='Best Practices' link='mouse' />
+              <ToggleMenu name='Best Practices' link='best' />
               <DropdownMenu>
                 <DropdownItem tag={RRNavLink} to='/best/step1'>
                   Single component
@@ -144,6 +144,26 @@ export default function Menu() {
                 Clock
               </NavLink>
             </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <ToggleMenu name='Security' link='auth' />
+              <DropdownMenu>
+                <DropdownItem tag={RRNavLink} to='/auth/signup'>
+                  Sign Up
+                </DropdownItem>
+                <DropdownItem tag={RRNavLink} to='/auth/signin'>
+                  Sign In
+                </DropdownItem>
+                <DropdownItem tag={RRNavLink} to='/auth/profile'>
+                  Profile
+                </DropdownItem>
+                <DropdownItem tag={RRNavLink} to='/auth/passwordreset'>
+                  Reset Password
+                </DropdownItem>
+                <DropdownItem tag={RRNavLink} to='/auth/signoff'>
+                  Sign Off
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </Nav>
         </Collapse>
       </Navbar>

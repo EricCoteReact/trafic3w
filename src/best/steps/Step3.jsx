@@ -1,9 +1,9 @@
 import React from 'react';
-//import Cat from '../Cat';
+import Cat from '../Cat';
 //import withCat from '../with-cat';
 
 function withMouse(Component) {
-  return class extends React.Component {
+  class WithMouse extends React.Component {
     state = { x: 0, y: 0 };
 
     handleMouseMove = (evt) => {
@@ -17,9 +17,15 @@ function withMouse(Component) {
         </div>
       );
     }
-  };
+  }
+
+  WithMouse.displayName = `WithSubscription(${
+    Component.displayName || Component.name || 'Component'
+  })`;
+  return WithMouse;
 }
 
+// eslint-disable-next-line
 function DisplayMouse({ mouse }) {
   return (
     <h1>
@@ -28,7 +34,7 @@ function DisplayMouse({ mouse }) {
   );
 }
 
-export default withMouse(DisplayMouse);
+export default withMouse(Cat);
 
 //export default withMouse(Cat);
 //export default withMouse(withCat(DisplayMouse));

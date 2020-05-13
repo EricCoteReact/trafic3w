@@ -1,11 +1,6 @@
 import React from 'react';
-import { Container } from 'reactstrap';
-import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom';
-import { useTransition, animated } from 'react-spring';
+import { Route, Switch } from 'react-router-dom';
 
-import './custom.scss';
-import Menu from './Menu';
-import Footer from './Footer';
 import Home from '../home';
 import Covid from '../covid';
 import WithRef from '../context/RefSample';
@@ -30,30 +25,23 @@ import Step2 from '../best/steps/Step2';
 import Step3 from '../best/steps/Step3';
 import Step4 from '../best/steps/Step4';
 import Step5 from '../best/steps/Step5';
+import SignUp from '../security/SignUp';
+import SignIn from '../security/SignIn';
+import Profile from '../security/Profile';
+import PasswordReset from '../security/PasswordReset';
+
+import SignOff from '../security/SignOff';
+
 import ContextDrill from '../context/PropDrilling/L1-SimpleState';
 import ContextWith from '../context/ContextSample/L1-SimpleContext';
 import About from '../about';
 //const About = React.lazy(() => import('./about'));
 
-function Content() {
-  const location = useLocation();
-  const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
-  });
-  return transitions.map(({ item, props, key }) => (
-    <animated.div
-      key={key}
-      style={{
-        ...props,
-        position: 'absolute',
-        width: '100%',
-        paddingBottom: '100px',
-      }}
-    >
+export default function MyRouting({ location }) {
+  return (
+    <>
       {/* <React.Suspense fallback={<h1>Loading...</h1>}   > */}
-      <Switch location={item}>
+      <Switch location={location}>
         <Route path='/' exact component={Home} />
         <Route path='/about' component={About} />
         <Route
@@ -73,7 +61,7 @@ function Content() {
           render={() => <HooksCounterV3 init={5} />}
         />
         <Route path='/context/reference' component={WithRef} />
-        <Route path='/covid' component={Covid} />
+        <Route path='/contacts/covid' component={Covid} />
         <Route path='/contacts/hooks' component={ContactsHooks} />
         <Route path='/contacts/class' component={ContactsClass} />
         <Route path='/contact/:id?' component={ContactDetails} />
@@ -92,30 +80,15 @@ function Content() {
         <Route path='/best/step3' component={Step3} />
         <Route path='/best/step4' component={Step4} />
         <Route path='/best/step5' component={Step5} />
+        <Route path='/auth/signup' component={SignUp} />
+        <Route path='/auth/signin' component={SignIn} />
+        <Route path='/auth/profile' component={Profile} />
+        <Route path='/auth/passwordreset' component={PasswordReset} />
+        <Route path='/auth/signoff' component={SignOff} />
+
         <Route component={NotFound} />
       </Switch>
       {/* </React.Suspense> */}
-    </animated.div>
-  ));
-}
-
-export default function App() {
-  return (
-    <BrowserRouter>
-      <div
-        style={{
-          minHeight: '100vh',
-          // display: 'flex',
-          // flexDirection: 'column',
-          overflowX: 'hidden',
-        }}
-      >
-        <Menu />
-        <Container className='position-relative '>
-          <Content />
-        </Container>
-        <Footer className='bg-dark text-light py-3 fixed-bottom' />
-      </div>
-    </BrowserRouter>
+    </>
   );
 }

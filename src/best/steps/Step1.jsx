@@ -1,5 +1,5 @@
 import React from 'react';
-//import Cat from '../Cat';
+import Cat from '../Cat';
 
 class DisplayMouse extends React.Component {
   state = { x: 0, y: 0 };
@@ -15,6 +15,7 @@ class DisplayMouse extends React.Component {
         <h1>
           The mouse position is: ({x}, {y})
         </h1>
+        <Cat mouse={this.state} />
       </div>
     );
   }

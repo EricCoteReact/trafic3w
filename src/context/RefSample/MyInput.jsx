@@ -11,10 +11,10 @@ const MyInput = (props) => {
   );
 };
 
-export default MyInput;
+//export default MyInput;
 
 //comment previous, uncomment next line
-//export default React.forwardRef((props, ref) => MyInput({ ...props, ref }));
+export default React.forwardRef((props, ref) => MyInput({ ...props, ref }));
 
 //------------------------------
 //by default ref is a "special" prop, handled by react that doesn't get

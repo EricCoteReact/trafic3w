@@ -5,11 +5,12 @@ import { Row, Col } from 'reactstrap';
 
 export default function SimpleState() {
   const [firstName, setFirstName] = useState('John');
+  const [lastName, setLastName] = useState('Wayne');
   const [color, setColor] = useState('blue');
 
   //the folloing is to avoid the ESLint warning that
   //we're not calling the "set" methods.
-  if ((setFirstName, setColor)) {
+  if ((setFirstName, setLastName, setColor)) {
   }
 
   function change(evt) {
@@ -25,10 +26,15 @@ export default function SimpleState() {
   return (
     <Row>
       <Col md='6'>
-        <ColoredPart firstName={firstName} color={color} />
+        <ColoredPart firstName={firstName} lastName={lastName} color={color} />
       </Col>
       <Col md='6'>
-        <ChangePart firstName={firstName} color={color} onChange={change} />
+        <ChangePart
+          firstName={firstName}
+          lastName={lastName}
+          color={color}
+          onChange={change}
+        />
       </Col>
     </Row>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-//import Cat from '../Cat';
+import Cat from '../Cat';
 
 class MouseProvider extends React.Component {
   state = { x: 0, y: 0 };
@@ -11,22 +11,14 @@ class MouseProvider extends React.Component {
   render() {
     return (
       <div style={{ height: '500px' }} onMouseMove={this.handleMouseMove}>
-        {this.props.children(this.state)}
+        {this.props.render(this.state)}
       </div>
     );
   }
 }
 
 function DisplayMouse({ mouse }) {
-  return (
-    <MouseProvider>
-      {(mouse) => (
-        <h1>
-          The mouse position is: ({mouse.x}, {mouse.y})
-        </h1>
-      )}
-    </MouseProvider>
-  );
+  return <MouseProvider render={(mouse) => <Cat mouse={mouse} />} />;
 }
 
 export default DisplayMouse;

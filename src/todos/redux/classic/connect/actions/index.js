@@ -3,6 +3,7 @@ export const actionList = {
   ADD_TODO: 'ADD_TODO',
   TOGGLE_TODO: 'TOGGLE_TODO',
   EDIT_TODO: 'EDIT_TODO',
+  DELETE_TODO: 'DELETE_TODO',
   SET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER',
 };
 
@@ -17,6 +18,10 @@ export function toggleTodo(id) {
 
 export function editTodo(id, newText) {
   return { type: actionList.EDIT_TODO, id, text: newText };
+}
+
+export function deleteTodo(id) {
+  return { type: actionList.DELETE_TODO, id };
 }
 
 export function setVisibilityFilter(filter) {
