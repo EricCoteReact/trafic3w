@@ -1,5 +1,5 @@
 import React, { Component, createContext } from 'react';
-import { auth } from './firebase';
+import { auth, getUserDocument } from './firebase';
 
 export const UserContext = createContext({ user: null });
 class UserProvider extends Component {
@@ -8,10 +8,27 @@ class UserProvider extends Component {
   };
 
   componentDidMount = () => {
-    auth.onAuthStateChanged((userAuth) => {
-      this.setState({ user: userAuth });
+    auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth == null) {
+        this.setState({
+          user: null,
+        });
+        return;
+      }
+      const doc = await getUserDocument(userAuth.uid);
+      console.log(doc);
+      console.log(userAuth);
+
+      this.setState({
+        user: {
+          ...userAuth,
+          displayName: userAuth.displayName ?? doc.displayName,
+          photoURL: userAuth.photoURL ?? doc.photoURL,
+        },
+      });
     });
   };
+
   render() {
     return (
       <UserContext.Provider value={this.state.user}>

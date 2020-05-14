@@ -12,9 +12,10 @@ import UserProvider from './UserProvider';
 function Content() {
   const location = useLocation();
   const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+    from: { opacity: 0, transform: 'rotateX(-180deg)' },
+    enter: { opacity: 1, transform: 'rotateX(0deg)' },
+    leave: { opacity: 0, transform: 'rotateX(180deg)' },
+    config: { mass: 5, tension: 300, friction: 20 },
   });
   return transitions.map(({ item, props, key }) => (
     <animated.div

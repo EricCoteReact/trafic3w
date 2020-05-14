@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { Input, Button, Form, Label } from 'reactstrap';
 import {
   signInWithGoogle,
+  signInWithGithub,
   auth,
   generateUserDocument,
 } from '../common/firebase';
 
-const SignUp = () => {
+const SignUp = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -19,7 +20,8 @@ const SignUp = () => {
   const createUserWithEmailAndPasswordHandler = async (
     event,
     email,
-    password
+    password,
+    displayName
   ) => {
     event.preventDefault();
     try {
@@ -27,7 +29,8 @@ const SignUp = () => {
         email,
         password
       );
-      generateUserDocument(user, { displayName });
+      await generateUserDocument(user, { displayName });
+      props.history.push('/auth/profile');
     } catch (error) {
       setError('Error Signing up with email and password');
     }
@@ -92,7 +95,12 @@ const SignUp = () => {
           <Button
             color='primary'
             onClick={(event) => {
-              createUserWithEmailAndPasswordHandler(event, email, password);
+              createUserWithEmailAndPasswordHandler(
+                event,
+                email,
+                password,
+                displayName
+              );
             }}
           >
             Sign up
@@ -101,6 +109,9 @@ const SignUp = () => {
         <p className='my-3'>or</p>
         <Button color='danger' onClick={signInWithGoogle}>
           Sign In with Google
+        </Button>{' '}
+        <Button color='danger' onClick={signInWithGithub}>
+          Sign In with Github
         </Button>
         <p className='my-3'>
           Already have an account?{' '}

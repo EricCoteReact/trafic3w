@@ -21,6 +21,7 @@ function getDay() {
 export default class Clock extends React.Component {
   state = {
     time: getTime(),
+    title: 'Démarrer Horloge',
   };
 
   timerRef = null;
@@ -28,21 +29,25 @@ export default class Clock extends React.Component {
   startTimer = () => {
     this.timerRef = setInterval(() => {
       //console.log('tick');
-      this.setState({ time: getTime() });
-    }, 1000);
-
-    // this.setState({time: getTime()});
+      if (this.state.time !== getTime()) {
+        this.setState({ time: getTime() });
+      }
+    }, 0);
+    this.setState({ time: getTime() });
   };
 
   stopTimer = () => {
     clearInterval(this.timerRef);
     this.timerRef = null;
+    this.setState({ time: getTime() });
   };
 
   timerToggler = () => {
     if (this.timerRef) {
+      this.setState({ title: 'Démarrer Horloge' });
       this.stopTimer();
     } else {
+      this.setState({ title: 'Arrêter Horloge' });
       this.startTimer();
     }
   };
@@ -68,7 +73,7 @@ export default class Clock extends React.Component {
     return (
       <div>
         <Button color='primary' onClick={this.timerToggler}>
-          Toggle Clock
+          {this.state.title}
         </Button>
         <h1>{this.state.time}</h1>
         <Day day={getDay()} />

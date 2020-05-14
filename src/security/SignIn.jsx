@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { signInWithGoogle, auth } from '../common/firebase';
+import { signInWithGoogle, signInWithGithub, auth } from '../common/firebase';
 import { Form, Label, Button, Input, Alert } from 'reactstrap';
-const SignIn = () => {
+const SignIn = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
   const signInWithEmailAndPasswordHandler = (event, email, password) => {
     event.preventDefault();
-    auth.signInWithEmailAndPassword(email, password).catch((error) => {
-      setError('Error signing in with password and email!');
-      console.error('Error signing in with password and email', error);
-    });
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        props.history.push('/auth/profile');
+      })
+      .catch((error) => {
+        setError('Error signing in with password and email!');
+        console.error('Error signing in with password and email', error);
+      });
   };
 
   const onChangeHandler = (event) => {
@@ -70,6 +75,9 @@ const SignIn = () => {
           }}
         >
           Sign in with Google
+        </Button>{' '}
+        <Button color='danger' onClick={signInWithGithub}>
+          Sign In with Github
         </Button>
         <p>
           Don't have an account?

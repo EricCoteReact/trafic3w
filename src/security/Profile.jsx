@@ -25,7 +25,9 @@ const ProfilePage = () => {
         ></div>
         <div className='ml-4'>
           <h2>{displayName}</h2>
-          <h3 className='italic'>{email}</h3>
+          <h3>
+            <i>{email}</i>
+          </h3>
         </div>
       </div>
       <Button
