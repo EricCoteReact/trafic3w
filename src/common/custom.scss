@@ -1,8 +1,14 @@
 $body-bg: bisque;
 
 @import '~bootstrap/scss/bootstrap.scss';
+@import url('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css');
 
 //everything below is for the nice textbox with label, used on the contact form.
+.leaflet-container {
+  height: 400px;
+  width: 80%;
+  margin: 0 auto;
+}
 
 .form-label-group {
   position: relative;
